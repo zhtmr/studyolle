@@ -13,15 +13,15 @@ public class SignUpFormValidator implements Validator {
     private final AccountRepository accountRepository;
 
     @Override
-    public boolean supports(Class<?> aClass) {
-        // sighUpForm 타입의 인스턴스 검사
+    public boolean supports(Class<?> aClass) { // 검사할 대상
+        // sighUpForm 타입의 인스턴스를 검사하겠다.
         return aClass.isAssignableFrom(SignUpForm.class);
     }
 
     @Override
-    public void validate(Object o, Errors errors) {
+    public void validate(Object object, Errors errors) { // 검사 방법
         // TODO email, nickname
-        SignUpForm signUpForm = (SignUpForm) errors;
+        SignUpForm signUpForm = (SignUpForm) object;
         if (accountRepository.existsByEmail(signUpForm.getEmail())){
             errors.rejectValue("email", "invalid.email", new Object[]{signUpForm.getEmail()}, "이미 사용중인 이메일입니다.");
         }
