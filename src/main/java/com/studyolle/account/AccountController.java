@@ -53,11 +53,6 @@ public class AccountController {
 
         Account newAccount = accountRepository.save(account);
 
-        // 코드가 번거로워짐 --> @InitBinder
-//        signUpFormValidator.validate(signUpForm, errors);
-//        if (errors.hasErrors()){
-//            return "account/sign-up";
-//        }
         newAccount.generateEmailCheckToken();
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(newAccount.getEmail());

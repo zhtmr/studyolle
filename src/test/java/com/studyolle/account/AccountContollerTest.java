@@ -27,4 +27,15 @@ class AccountContollerTest {
                 .andExpect(view().name("account/sign-up"))
                 .andExpect(model().attributeExists("signUpForm"));
     }
+
+    @DisplayName("회원 가입 처리 - 입력값 오류")
+    @Test
+    void signUpSubmit_with_wrong_input() throws Exception {
+        mockMvc.perform(post("/sign-up")
+        .param("nickname", "keesun")
+        .param("email", "email...")
+        .param("password", "12345"))
+        .andExpect(status().isOk())
+        .andExpect(view().name("account/sign-up")); // error : 403 csrf
+    }
 }
